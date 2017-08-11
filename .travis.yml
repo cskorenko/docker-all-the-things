@@ -8,8 +8,8 @@ script:
 - docker run sfeinste/docker-all-the-things:test
 
 after_success:
-  - docker build -t sfeinste/docker-all-the-things .
+  - docker build -t sfeinste/docker-all-the-things:master .
   - if [ "$TRAVIS_BRANCH" == "master" ]; then
     docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
-    docker push sfeinste/docker-all-the-things;
+    docker push sfeinste/docker-all-the-things:master;
     fi
