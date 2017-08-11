@@ -1,0 +1,40 @@
+{
+  "name": "docker-all-the-things",
+  "version": "1.0.0",
+  "description": "example project to dockerize all the things",
+  "main": "app.js",
+  "scripts": {
+    "start": "node dist/app.js",
+    "start:dev": "npm install && nodemon -x 'npm-run-all build start' --watch lib/src/ --ignore dist/ -L -e 'ts'",
+    "test:unit": "mocha -r ts-node/register lib/spec/*.ts",
+    "test:watch": "npm install && nodemon -x 'npm-run-all test:unit' --watch lib/ --ignore dist/ -L -e 'ts'",
+    "build": "echo building... && npm-run-all build:ts build:lint && echo done!",
+    "build:lint": "tslint -c tslint.json src/**.ts",
+    "build:ts": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sfeinste/docker-all-the-things.git"
+  },
+  "author": "Spruce Feinstein",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Sfeinste/docker-all-the-things/issues"
+  },
+  "homepage": "https://github.com/Sfeinste/docker-all-the-things#readme",
+  "devDependencies": {
+    "@types/chai": "^4.0.3",
+    "@types/mocha": "^2.2.41",
+    "chai": "^4.1.1",
+    "mocha": "^3.5.0",
+    "nodemon": "^1.11.0",
+    "npm-run-all": "^4.0.2",
+    "ts-node": "^3.3.0",
+    "tslint": "^5.6.0",
+    "tslint-eslint-rules": "^4.1.1",
+    "typescript": "^2.4.2"
+  },
+  "dependencies": {
+    "express": "^4.15.4"
+  }
+}
