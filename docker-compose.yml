@@ -14,3 +14,13 @@ services:
             - .:/app
         working_dir: "/app"
         command: npm run test:watch
+    db-dev:
+        image: mariadb:latest
+        environment:
+            - MYSQL_DATABASE=dogs
+            - MYSQL_USER=username
+            - MYSQL_PASSWORD=somesecret123
+            - MYSQL_ROOT_PASSWORD=somerootsecret123
+        ports:
+            - "3306:3306"
+
