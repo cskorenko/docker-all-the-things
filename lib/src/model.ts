@@ -2,17 +2,34 @@
 
 import * as Sequelize from 'sequelize';
 
+import { dogSchema } from './schemas';
+import { createLogger } from './config';
+
+const logger = createLogger('model');
+
 const sequelize = new Sequelize('dogs', 'username', 'somesecret123', {
     host: 'db-dev',
-    dialect: 'mysql'
+    dialect: 'mysql',
+    pool: {
+        max: 5,
+        min: 0,
+        idle: 10000
+  }
 });
 
 export async function connect() {
     try {
         await sequelize.authenticate();
-        console.log('succesfully connected');
+        await init();
+        logger.info('succesfully connected');
     } catch (e) {
-        console.log('unable to connect');
+        logger.error('unable to connect');
     }
 
+}
+
+export const Dog = sequelize.define('dogs', dogSchema);
+
+async function init() {
+    await Dog.sync();
 }
